@@ -5,6 +5,10 @@ VSCODE_INSTALL_DIRECTORY="/opt/vscode"
 trap "{ rm -rf $TEMP_DIRECTORY; exit 255; }" EXIT SIGINT SIGTERM
 cd $TEMP_DIRECTORY
 if [ $(command -v vscode) ]; then
+	#
+	# TODO: Check to see if 'version' file exists, if not, re-install VS Code since we can't be sure
+	#		what version is currently installed.
+	#
 	read INSTALLED_VERSION < $VSCODE_INSTALL_DIRECTORY/version
 	echo $INSTALLED_VERSION > vscode_versions
 	echo $LATEST_VERSION >> vscode_versions
