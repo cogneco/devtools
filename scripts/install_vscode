@@ -1,27 +1,32 @@
 #!/bin/bash
+TEMP_DIRECTORY=$(mktemp -d)
+LATEST_VERSION="0.9.1"
+VSCODE_INSTALL_DIRECTORY="/opt/vscode"
+trap "{ rm -rf $TEMP_DIRECTORY; exit 255; }" EXIT SIGINT SIGTERM
+cd $TEMP_DIRECTORY
 if [ $(command -v vscode) ]; then
-	#
-	# TODO: We may wish to run update-vscode here...
-	#
-	echo "VS Code appears to be installed, use 'update-vscode' to update it."
-else
-	TEMP_DIRECTORY=$(mktemp -d)
-	trap "{ rm -rf $TEMP_DIRECTORY; exit 255; }" EXIT SIGINT SIGTERM
-	cd $TEMP_DIRECTORY
-	OS_BITNESS=$(getconf LONG_BIT)
-	VSCODE_VERSION="0.9.1"
-	VSCODE_DOWNLOAD_URL="https://az764295.vo.msecnd.net/public/$VSCODE_VERSION/VSCode-linux$OS_BITNESS.zip"
-	VSCODE_TARGET_DIRECTORY="/opt/vscode"
-	VSCODE_SYMLINK="/usr/local/bin/vscode"
-	VSCODE_EXTENSION_DIRECTORY="$HOME/.vscode/extensions"
-	VSCODE_FOLDER="VSCode-linux-x64"
-	if [ "$OS_BITNESS" -eq 32 ]; then
-		VSCODE_FOLDER="VSCode-linux-ia32"
+	read INSTALLED_VERSION < $VSCODE_INSTALL_DIRECTORY/version
+	echo $INSTALLED_VERSION > vscode_versions
+	echo $LATEST_VERSION >> vscode_versions
+	set $(sort -Vr vscode_versions)
+	echo $0
+	# The highest version is stored in $1
+	if [ $1 == $INSTALLED_VERSION ]; then
+		echo "latest"
+		exit 0
 	fi
-	echo "Installing VS Code..."
-	wget "$VSCODE_DOWNLOAD_URL" -O vscode.zip
-	unzip -q vscode.zip && cd $VSCODE_FOLDER
-	echo $VSCODE_FOLDER
-	sudo mv $TEMP_DIRECTORY/$VSCODE_FOLDER $VSCODE_TARGET_DIRECTORY
-	sudo ln -s $VSCODE_TARGET_DIRECTORY/Code $VSCODE_SYMLINK
 fi
+OS_BITNESS=$(getconf LONG_BIT)
+VSCODE_DOWNLOAD_URL="https://az764295.vo.msecnd.net/public/$LATEST_VERSION/VSCode-linux$OS_BITNESS.zip"
+VSCODE_SYMLINK="/usr/local/bin/vscode"
+VSCODE_FOLDER="VSCode-linux-x64"
+if [ "$OS_BITNESS" -eq 32 ]; then
+	VSCODE_FOLDER="VSCode-linux-ia32"
+fi
+echo "Installing VS Code..."
+wget "$VSCODE_DOWNLOAD_URL" -O vscode.zip
+unzip -q vscode.zip && cd $VSCODE_FOLDER
+echo $VSCODE_FOLDER
+sudo mv $TEMP_DIRECTORY/$VSCODE_FOLDER $VSCODE_INSTALL_DIRECTORY
+sudo ln -s $VSCODE_INSTALL_DIRECTORY/Code $VSCODE_SYMLINK
+echo $LATEST_VERSION > $VSCODE_INSTALL_DIRECTORY/version
