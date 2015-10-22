@@ -1,0 +1,13 @@
+#!/bin/bash
+TEMP_DIRECTORY=$(mktemp -d)
+trap "{ rm -rf $TEMP_DIRECTORY; exit 255; }" EXIT SIGINT SIGTERM
+cd $TEMP_DIRECTORY
+wget https://github.com/thomasfanell/devtools/archive/master.zip
+unzip -qj master.zip -d devtools && cd devtools
+echo "Updating APT package lists (this may take a while)..."
+sudo apt-get -qq update
+./install_git
+./install_nodejs
+./install_vscode
+./install_magic
+./install_vslanguageooc

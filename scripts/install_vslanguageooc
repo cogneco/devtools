@@ -1,0 +1,12 @@
+#!/bin/bash
+TEMP_DIRECTORY=$(mktemp -d)
+trap "{ rm -rf $TEMP_DIRECTORY; exit 255; }" EXIT SIGINT SIGTERM
+cd $TEMP_DIRECTORY
+VSCODE_EXTENSION_DIRECTORY="$HOME/.vscode/extensions"
+LANGUAGE_OOC_URL="https://github.com/cogneco/vs.language.ooc/archive/master.zip"
+LANGUAGE_OOC_TARGET_DIRECTORY="$VSCODE_EXTENSION_DIRECTORY/ooc"
+echo "Installing ooc language support for ooc (vs.language.ooc)..."
+wget "$LANGUAGE_OOC_URL" -O vs.language.ooc.zip
+unzip -q vs.language.ooc.zip
+mkdir -p $VSCODE_EXTENSION_DIRECTORY
+mv $TEMP_DIRECTORY/vs.language.ooc-master $LANGUAGE_OOC_TARGET_DIRECTORY

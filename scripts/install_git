@@ -1,0 +1,5 @@
+#!/bin/bash
+if [ ! $(command -v git) ]; then
+	echo "Installing git..."
+	sudo apt-get install -yqq git
+fi

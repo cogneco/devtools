@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ ! $(command -v npm) ]; then
+	curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
+	echo "Installing Node.js..."
+	sudo apt-get install -yqq nodejs
+	sudo npm install -g npm
+fi
