@@ -34,4 +34,3 @@ sudo mv $TEMP_DIRECTORY/$VSCODE_FOLDER $VSCODE_INSTALL_DIRECTORY
 sudo ln -sf $VSCODE_INSTALL_DIRECTORY/Code $VSCODE_SYMLINK
 mkdir -p "$HOME/.vscode"
 echo $LATEST_VERSION > $VSCODE_VERSION_FILE
-sudo cp $0 /usr/local/bin/update-vscode
