@@ -1,23 +1,21 @@
 #!/bin/bash
 TEMP_DIRECTORY=$(mktemp -d)
-LATEST_VERSION="0.9.1"
-VSCODE_INSTALL_DIRECTORY="/opt/vscode"
 trap "{ rm -rf $TEMP_DIRECTORY; exit 255; }" EXIT SIGINT SIGTERM
 cd $TEMP_DIRECTORY
+LATEST_VERSION=$(wget --no-cache -qO- https://raw.githubusercontent.com/thomasfanell/devtools/master/versions/vscode_latest)
+VSCODE_INSTALL_DIRECTORY="/opt/vscode"
+VSCODE_VERSION_FILE="$HOME/.vscode/version"
 if [ $(command -v vscode) ]; then
-	#
-	# TODO: Check to see if 'version' file exists, if not, re-install VS Code since we can't be sure
-	#		what version is currently installed.
-	#
-	read INSTALLED_VERSION < $VSCODE_INSTALL_DIRECTORY/version
-	echo $INSTALLED_VERSION > vscode_versions
-	echo $LATEST_VERSION >> vscode_versions
-	set $(sort -Vr vscode_versions)
-	echo $0
-	# The highest version is stored in $1
-	if [ $1 == $INSTALLED_VERSION ]; then
-		echo "latest"
-		exit 0
+	if [ -e $VSCODE_VERSION_FILE ]; then
+		read INSTALLED_VERSION < $VSCODE_VERSION_FILE
+		echo $INSTALLED_VERSION > vscode_versions
+		echo $LATEST_VERSION >> vscode_versions
+		set $(sort -Vr vscode_versions)
+		# The highest version is stored in $1
+		if [ $1 == $2 ]; then
+			echo "You already have the latest version of VS Code installed ($INSTALLED_VERSION)."
+			exit 0
+		fi
 	fi
 fi
 OS_BITNESS=$(getconf LONG_BIT)
@@ -28,9 +26,12 @@ if [ "$OS_BITNESS" -eq 32 ]; then
 	VSCODE_FOLDER="VSCode-linux-ia32"
 fi
 echo "Installing VS Code..."
+sudo rm -rf $VSCODE_INSTALL_DIRECTORY
 wget "$VSCODE_DOWNLOAD_URL" -O vscode.zip
 unzip -q vscode.zip && cd $VSCODE_FOLDER
 echo $VSCODE_FOLDER
 sudo mv $TEMP_DIRECTORY/$VSCODE_FOLDER $VSCODE_INSTALL_DIRECTORY
-sudo ln -s $VSCODE_INSTALL_DIRECTORY/Code $VSCODE_SYMLINK
-echo $LATEST_VERSION > $VSCODE_INSTALL_DIRECTORY/version
+sudo ln -sf $VSCODE_INSTALL_DIRECTORY/Code $VSCODE_SYMLINK
+mkdir -p "$HOME/.vscode"
+echo $LATEST_VERSION > $VSCODE_VERSION_FILE
+sudo cp $0 /usr/local/bin/update-vscode

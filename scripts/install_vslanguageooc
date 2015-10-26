@@ -8,5 +8,6 @@ LANGUAGE_OOC_TARGET_DIRECTORY="$VSCODE_EXTENSION_DIRECTORY/ooc"
 echo "Installing ooc language support for ooc (vs.language.ooc)..."
 wget "$LANGUAGE_OOC_URL" -O vs.language.ooc.zip
 unzip -q vs.language.ooc.zip
+rm -rf $LANGUAGE_OOC_TARGET_DIRECTORY
 mkdir -p $VSCODE_EXTENSION_DIRECTORY
 mv $TEMP_DIRECTORY/vs.language.ooc-master $LANGUAGE_OOC_TARGET_DIRECTORY

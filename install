@@ -11,5 +11,3 @@ sudo apt-get -qq update
 ./install_vscode
 ./install_magic
 ./install_vslanguageooc
-
-sudo cp install_vscode /usr/local/bin/update-vscode
