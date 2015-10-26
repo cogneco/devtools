@@ -2,7 +2,7 @@
 TEMP_DIRECTORY=$(mktemp -d)
 trap "{ rm -rf $TEMP_DIRECTORY; exit 255; }" EXIT SIGINT SIGTERM
 cd $TEMP_DIRECTORY
-LATEST_VERSION=$(wget --no-cache -qO- https://raw.githubusercontent.com/thomasfanell/devtools/master/versions/vscode_latest)
+LATEST_VERSION=$(wget --no-cache -qO- https://raw.githubusercontent.com/cogneco/devtools/master/versions/vscode_latest)
 VSCODE_INSTALL_DIRECTORY="/opt/vscode"
 VSCODE_VERSION_FILE="$HOME/.vscode/version"
 if [ $(command -v vscode) ]; then
