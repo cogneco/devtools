@@ -11,5 +11,7 @@ sudo apt-get -qq update
 ./install_vscode
 ./install_magic
 ./install_vslanguageooc
+./install_rock
 
 sudo cp install_vscode /usr/local/bin/update-vscode
+sudo cp install_rock /usr/local/bin/update-rock

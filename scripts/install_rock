@@ -1,0 +1,28 @@
+#!/bin/bash
+TEMP_DIRECTORY=$(mktemp -d)
+trap "{ rm -rf $TEMP_DIRECTORY; exit 255; }" EXIT SIGINT SIGTERM
+cd $TEMP_DIRECTORY
+URL="$(wget -O - https://github.com/cogneco/rock/releases/latest | grep -o '\<download/rock_.*deb\>')"
+PACKAGE_FILE=${URL##*/}
+LATEST_VERSION=$(echo ${PACKAGE_FILE%.*} | grep -Po '(?<=rock_)[^\x00]+')
+if [ $(command -v rock) ]; then
+	INSTALLED_VERSION=$(echo $(rock --version) | grep -Po '(?<=rock )[^-]+')
+	echo $INSTALLED_VERSION > "rock_version"
+	echo $LATEST_VERSION >> "rock_version"
+	set $(sort -Vr rock_version)
+	if [ $1 == $2 ]; then
+		echo "You already have the latest version of rock"
+		UPDATE=false
+	else
+		echo "rock will be updated"
+		UPDATE=true
+	fi
+else
+	echo "rock will be installed"
+	UPDATE=true
+fi
+if [ $UPDATE == true ]; then
+	wget https://github.com/cogneco/rock/releases/$URL
+	echo "Installing rock $LATEST_VERSION"
+	sudo dpkg --install --skip-same-version $PACKAGE_FILE
+fi
