@@ -1,7 +1,3 @@
-#!/bin/bash
-TEMP_DIRECTORY=$(mktemp -d)
-trap "{ rm -rf $TEMP_DIRECTORY; exit 255; }" EXIT SIGINT SIGTERM
-cd $TEMP_DIRECTORY
 LATEST_VERSION=$(wget --no-cache -qO- https://raw.githubusercontent.com/cogneco/devtools/master/versions/vscode_latest)
 VSCODE_INSTALL_DIRECTORY="/opt/vscode"
 VSCODE_VERSION_FILE="$HOME/.vscode/version"
@@ -11,9 +7,9 @@ if [ $(command -v vscode) ]; then
 		echo $INSTALLED_VERSION > vscode_versions
 		echo $LATEST_VERSION >> vscode_versions
 		set $(sort -Vr vscode_versions)
-		# The highest version is stored in $1
 		if [ $1 == $2 ]; then
 			echo "You already have the latest version of VS Code installed ($INSTALLED_VERSION)."
+			rm vscode_versions
 			exit 0
 		fi
 	fi
@@ -28,9 +24,8 @@ fi
 echo "Installing VS Code..."
 sudo rm -rf $VSCODE_INSTALL_DIRECTORY
 wget "$VSCODE_DOWNLOAD_URL" -O vscode.zip
-unzip -q vscode.zip && cd $VSCODE_FOLDER
-echo $VSCODE_FOLDER
-sudo mv $TEMP_DIRECTORY/$VSCODE_FOLDER $VSCODE_INSTALL_DIRECTORY
+unzip -q vscode.zip
+sudo mv $VSCODE_FOLDER $VSCODE_INSTALL_DIRECTORY
 sudo ln -sf $VSCODE_INSTALL_DIRECTORY/Code $VSCODE_SYMLINK
 mkdir -p "$HOME/.vscode"
 echo $LATEST_VERSION > $VSCODE_VERSION_FILE
