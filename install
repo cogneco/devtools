@@ -2,7 +2,6 @@
 TEMP_DIRECTORY=$(mktemp -d)
 trap "{ rm -rf $TEMP_DIRECTORY; exit 255; }" EXIT SIGINT SIGTERM
 cd $TEMP_DIRECTORY
-sudo apt-get install -yqq curl
 wget https://github.com/cogneco/devtools/archive/master.zip
 unzip -qj master.zip -d devtools && cd devtools
 echo "Updating APT package lists (this may take a while)..."
