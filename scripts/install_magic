@@ -1,11 +1,6 @@
-#!/bin/bash
-TEMP_DIRECTORY=$(mktemp -d)
-trap "{ rm -rf $TEMP_DIRECTORY; exit 255; }" EXIT SIGINT SIGTERM
-cd $TEMP_DIRECTORY
-LATEST_RELEASE="$(wget -qO- https://github.com/cogneco/magic/releases/latest | grep -o -m 1 '\<download/.*tar.gz\>')"
-ARCHIVE_FILE=${LATEST_RELEASE##*/}
-ARCHIVE_FOLDER=${ARCHIVE_FILE%.tar.gz}
+MAGIC_LATEST_RELEASE="$(wget -qO - https://github.com/cogneco/magic/releases/latest | grep -o -m 1 '\<download/.*tar.gz\>')"
+MAGIC_ARCHIVE_FILE=${MAGIC_LATEST_RELEASE##*/}
 echo "Installing magic..."
-wget https://github.com/cogneco/magic/releases/$LATEST_RELEASE
-tar -zxvf $ARCHIVE_FILE
-sudo mv magic /usr/local/bin/
+wget https://github.com/cogneco/magic/releases/$MAGIC_LATEST_RELEASE
+tar -zxvf $MAGIC_ARCHIVE_FILE
+sudo mv magic "/usr/local/bin/"
