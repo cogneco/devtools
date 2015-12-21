@@ -1,10 +1,10 @@
-# devtools
+# magic-tools
 A selection of scripts and tools to aid development.
 
 ## installation (Ubuntu)
 Open up a terminal window and issue this command:
 ```bash
-curl -vs https://raw.githubusercontent.com/cogneco/devtools/master/install > install-devtools && chmod 755 install-devtools && ./install-devtools && wait; rm install-devtools
+curl -vs https://raw.githubusercontent.com/cogneco/magic-tools/master/install > install-magic-tools && chmod 755 install-magic-tools && ./install-magic-tools && wait; rm install-magic-tools
 ```
 
 ## list of installed tools
