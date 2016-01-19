@@ -1,9 +1,9 @@
 VSCODE_EXTENSION_DIRECTORY="$HOME/.vscode/extensions"
-LANGUAGE_OOC_URL="https://github.com/cogneco/vs.language.ooc/archive/master.zip"
-LANGUAGE_OOC_TARGET_DIRECTORY="$VSCODE_EXTENSION_DIRECTORY/ooc"
-echo "Installing ooc language support for ooc (vs.language.ooc)..."
-wget "$LANGUAGE_OOC_URL" -O vs.language.ooc.zip
-unzip -q vs.language.ooc.zip
-rm -rf $LANGUAGE_OOC_TARGET_DIRECTORY
+LANGUAGE_MAGIC_URL="https://github.com/magic-lang/vs.language.magic/archive/master.zip"
+LANGUAGE_MAGIC_TARGET_DIRECTORY="$VSCODE_EXTENSION_DIRECTORY/magic"
+echo "Installing magic language support for VS Code (vs.language.magic)..."
+wget "$LANGUAGE_MAGIC_URL" -O vs.language.magic.zip
+unzip -q vs.language.magic.zip
+rm -rf $LANGUAGE_MAGIC_TARGET_DIRECTORY
 mkdir -p $VSCODE_EXTENSION_DIRECTORY
-mv ./vs.language.ooc-master $LANGUAGE_OOC_TARGET_DIRECTORY
+mv ./vs.language.magic-master $LANGUAGE_OOC_TARGET_DIRECTORY
