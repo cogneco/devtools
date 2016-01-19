@@ -2,7 +2,7 @@
 TEMP_DIRECTORY=$(mktemp -d)
 trap "{ rm -rf $TEMP_DIRECTORY; exit 255; }" EXIT SIGINT SIGTERM
 cd $TEMP_DIRECTORY
-wget https://github.com/cogneco/magic-tools/archive/master.zip
+wget https://github.com/magic-lang/magic-tools/archive/master.zip
 unzip -qj master.zip -d magic-tools && cd magic-tools
 echo "Updating APT package lists (this may take a while)..."
 bash ./install_nodejs # this installer will update apt
@@ -14,5 +14,5 @@ bash ./install_vslanguageooc
 #
 # Update scripts
 #
-bash ./install_ooc_updater
+bash ./install_magic-lang_updater
 bash ./install_vscode_updater
