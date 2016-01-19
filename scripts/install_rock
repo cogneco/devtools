@@ -1,4 +1,4 @@
-ROCK_URL="$(wget -qO - https://github.com/cogneco/rock/releases/latest | grep -o -m 1 '\<download/rock_.*deb\>')"
+ROCK_URL="$(wget -qO - https://github.com/magic-lang/rock/releases/latest | grep -o -m 1 '\<download/rock_.*deb\>')"
 ROCK_PACKAGE_FILE=${ROCK_URL##*/}
 ROCK_LATEST_VERSION=$(echo ${ROCK_PACKAGE_FILE%.*} | grep -Po '(?<=rock_)[^\x00]+')
 if [ $(command -v rock) ]; then
@@ -18,7 +18,7 @@ else
 	UPDATE_ROCK=true
 fi
 if [ $UPDATE_ROCK == true ]; then
-	wget https://github.com/cogneco/rock/releases/$ROCK_URL
+	wget https://github.com/magic-lang/rock/releases/$ROCK_URL
 	echo "Installing rock $ROCK_LATEST_VERSION"
 	sudo dpkg --install --skip-same-version $ROCK_PACKAGE_FILE
 fi
