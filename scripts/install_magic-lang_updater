@@ -1,4 +1,4 @@
-SCRIPT_NAME="update-ooc-tools"
+SCRIPT_NAME="update-magic-lang-tools"
 echo "#!/bin/bash" > $SCRIPT_NAME
 echo "TEMP_DIRECTORY=\$(mktemp -d)" >> $SCRIPT_NAME
 echo "trap \"{ rm -rf \$TEMP_DIRECTORY; exit 255; }\" EXIT SIGINT SIGTERM" >> $SCRIPT_NAME
