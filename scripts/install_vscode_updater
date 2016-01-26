@@ -3,6 +3,6 @@ echo "#!/bin/bash" > $SCRIPT_NAME
 echo "TEMP_DIRECTORY=\$(mktemp -d)" >> $SCRIPT_NAME
 echo "trap \"{ rm -rf \$TEMP_DIRECTORY; exit 255; }\" EXIT SIGINT SIGTERM" >> $SCRIPT_NAME
 echo "cd \$TEMP_DIRECTORY" >> $SCRIPT_NAME
-cat ./install_vslanguagemagic ./install_vscode >> $SCRIPT_NAME
+cat ./install_vslanguageooc ./install_vscode >> $SCRIPT_NAME
 chmod 755 $SCRIPT_NAME
 sudo mv $SCRIPT_NAME "/usr/local/bin"
