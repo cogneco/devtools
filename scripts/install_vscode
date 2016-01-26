@@ -1,4 +1,4 @@
-LATEST_VERSION=$(wget --no-cache -qO- https://raw.githubusercontent.com/magic-lang/devtools/master/versions/vscode_latest)
+LATEST_VERSION=$(wget --no-cache -qO- https://raw.githubusercontent.com/magic-lang/magic-tools/master/versions/vscode_latest)
 VSCODE_INSTALL_DIRECTORY="/opt/vscode"
 VSCODE_VERSION_FILE="$HOME/.vscode/version"
 if [ $(command -v vscode) ]; then
