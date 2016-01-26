@@ -6,4 +6,4 @@ wget "$LANGUAGE_MAGIC_URL" -O vs.language.ooc.zip
 unzip -q vs.language.ooc.zip
 rm -rf $LANGUAGE_MAGIC_TARGET_DIRECTORY
 mkdir -p $VSCODE_EXTENSION_DIRECTORY
-mv ./vs.language.ooc-master $LANGUAGE_OOC_TARGET_DIRECTORY
+mv ./vs.language.ooc-master LANGUAGE_MAGIC_TARGET_DIRECTORY
