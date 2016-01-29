@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo apt-get install -yqq mesa-common mesa-utils-extra libglew-dev libegl1-mesa-dev libgles1-mesa-dev libgles2-mesa-dev
+sudo apt-get install -yqq mesa-common-dev mesa-utils-extra libglew-dev libegl1-mesa-dev libgles1-mesa-dev libgles2-mesa-dev
