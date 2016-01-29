@@ -6,6 +6,7 @@ wget https://github.com/magic-lang/magic-tools/archive/master.zip
 unzip -qj master.zip -d magic-tools && cd magic-tools
 echo "Updating APT package lists (this may take a while)..."
 bash ./install_nodejs # this installer will update apt
+bash ./install_devheaders
 bash ./install_git
 bash ./install_rock
 bash ./install_magic
