@@ -8,6 +8,8 @@ echo "Updating APT package lists (this may take a while)..."
 bash ./install_nodejs # this installer will update apt
 bash ./install_devheaders
 bash ./install_git
+bash ./install_libav
+bash ./install_valgrind
 bash ./install_rock
 bash ./install_magic
 bash ./install_vscode

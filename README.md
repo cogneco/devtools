@@ -10,6 +10,8 @@ curl -vs https://raw.githubusercontent.com/magic-lang/magic-tools/master/install
 ## list of installed tools
 * git
 * node.js
+* libav-tools
+* valgrind
 * rock
 * magic
 * Visual Studio Code
