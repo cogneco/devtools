@@ -15,11 +15,12 @@ if [ $(command -v vscode) ]; then
 	fi
 fi
 OS_BITNESS=$(getconf LONG_BIT)
-VSCODE_DOWNLOAD_URL="https://az764295.vo.msecnd.net/public/$LATEST_VERSION/VSCode-linux$OS_BITNESS.zip"
 VSCODE_SYMLINK="/usr/local/bin/vscode"
 VSCODE_FOLDER="VSCode-linux-x64"
+VSCODE_DOWNLOAD_URL="https://go.microsoft.com/fwlink/?LinkID=620884"
 if [ "$OS_BITNESS" -eq 32 ]; then
 	VSCODE_FOLDER="VSCode-linux-ia32"
+	VSCODE_DOWNLOAD_URL="http://go.microsoft.com/fwlink/?LinkId=723969"
 fi
 echo "Installing VS Code..."
 sudo rm -rf $VSCODE_INSTALL_DIRECTORY
